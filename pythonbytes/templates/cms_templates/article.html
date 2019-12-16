@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load cms_tags sekizai_tags static %}
+
+{% block content %}
+  {% include "_snippets/navbar.html" %}
+  <div class="container">
+    {% placeholder "content" %}  
+  </div>
+
+  {% addtoblock "highlightcss" %}
+    <link rel="stylesheet" href="{% static "vendors/highlightjs/styles/atom-one-light.css" %}">
+  {% endaddtoblock %}
+
+  {% addtoblock "highlightjs" %}
+    <script src="{% static "vendors/highlightjs/highlight.pack.js" %}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  {% endaddtoblock %}
+{% endblock content %}

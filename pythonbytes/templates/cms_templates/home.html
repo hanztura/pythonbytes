@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% block content %}
+  {% include "_snippets/navbar.html" %}
+  <div class="container">
+    {% placeholder "content" %}  
+  </div>
+{% endblock content %}

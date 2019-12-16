@@ -1,0 +1,21 @@
+{% load cms_tags sekizai_tags static %}
+<html>
+    <head>
+        <title>{% page_attribute "page_title" %}</title>
+        <link href="{% static 'vendors/googlefonts/icon.css' %}" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald&display=swap" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="{% static 'vendors/materialize/css/materialize--project.min.css' %}"  media="screen,projection"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        {% render_block "css" %}
+        {% render_block "highlightcss" %}
+    </head>
+    <body>
+        {% cms_toolbar %}
+        {% block content %}{% endblock content %}
+
+        <script type="text/javascript" src="{% static 'vendors/materialize/js/materialize.min.js' %}"></script>
+        <script src="{% static 'js/base.js' %}"></script>
+        {% render_block "js" %}
+        {% render_block "highlightjs" %}
+    </body>
+</html>
