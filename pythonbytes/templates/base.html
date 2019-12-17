@@ -1,7 +1,11 @@
-{% load cms_tags sekizai_tags static %}
+{% load cms_tags sekizai_tags static meta page_meta_tags %}
+{% page_meta request.current_page as page_meta %}
+
 <html>
-    <head>
+    <head {% meta_namespaces %}>
         <title>{% page_attribute "page_title" %}</title>
+        {% include "meta/meta.html" %}
+        {% include 'djangocms_page_meta/meta.html' with meta=page_meta %}
         <link href="{% static 'vendors/googlefonts/icon.css' %}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald&display=swap" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="{% static 'vendors/materialize/css/materialize--project.min.css' %}"  media="screen,projection"/>

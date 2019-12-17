@@ -1,0 +1,18 @@
+<div class="col s12">
+  <div class="card">
+    <div class="card-content">
+      {% if instance.title_tag %}
+        <{{ instance.title_tag }} class="card-title">{{ instance.title }}</{{ instance.title_tag }}>
+      {% else %}
+        <span class="card-title">{{ instance.title }}</span>
+      {% endif %}
+        
+      <pre>{{ instance.body }}</pre>
+    </div>
+    {% if instance.main_internal_link %}
+      <div class="card-action right-align">
+        <a class="btn light-blue" href="{{ instance.main_internal_link.get_absolute_url }}">{{ instance.main_internal_text }}</a>
+      </div>
+    {% endif %}
+  </div>
+</div>

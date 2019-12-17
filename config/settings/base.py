@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'system',
+    'django_extensions',
 
     'cms',
     'menus',
@@ -52,6 +53,8 @@ INSTALLED_APPS = [
     'filer',
     'easy_thumbnails',
     'mptt',
+    'meta',
+    'djangocms_page_meta',
 
     'djangocms_text_ckeditor',
     'djangocms_link',
@@ -65,11 +68,11 @@ INSTALLED_APPS = [
     # 'parler',
     # 'taggit',
     # 'taggit_autosuggest',
-    # 'meta',
     # 'sortedm2m',
     # 'djangocms_blog',
 
     'custom_cms_plugins',
+    'tutorials',
 ]
 
 MIDDLEWARE = [
@@ -203,3 +206,10 @@ CKEDITOR_SETTINGS = {
         ['Source']
     ],
 }
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+META_SITE_PROTOCOL = 'http'
+META_USE_SITES = True
