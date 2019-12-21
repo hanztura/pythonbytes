@@ -1,0 +1,22 @@
+{% extends "newsletter/base.html" %}
+
+
+{% block maincontent %}
+  <h1>Newsletters</h1>
+  <table>
+    <thead>
+      <th>Subject</th>
+      <th>Body</th>
+      <th>Delivery count</th>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+        <tr>
+          <td><a href="{% url 'newsletter:detail' object.pk %}">{{ object.subject }}</a></td>
+          <td>{{ object.body }}</td>
+          <td>{{ object.subscribers.count }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock maincontent %}

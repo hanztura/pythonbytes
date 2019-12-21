@@ -1,0 +1,14 @@
+{% extends "newsletter/base.html" %}
+
+{% block maincontent %}
+    <h1>Newsletter: {{ object.subject }}</h1>
+    <div class="container">
+      {{ object.body }}
+    </div>
+    <div class="row">
+      <form method="POST" action="{% url 'newsletter:send' object.pk %}">
+        {% csrf_token %}
+        <button class="col s12 btn deep-orange fullwidth">Send now</button>
+      </form>
+    </div>
+{% endblock maincontent %}

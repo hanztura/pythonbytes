@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% include "_snippets/navbar.html" %}
+  <section class="container">
+    {% block maincontent %}{% endblock maincontent %}
+  </section>  
+{% endblock content %}

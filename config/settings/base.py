@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'system',
     'django_extensions',
 
+    'anymail',
+
     'cms',
     'menus',
     'treebeard',
@@ -73,6 +75,7 @@ INSTALLED_APPS = [
 
     'custom_cms_plugins',
     'tutorials',
+    'newsletter',
 ]
 
 MIDDLEWARE = [
@@ -213,3 +216,18 @@ MEDIA_URL = '/media/'
 
 META_SITE_PROTOCOL = 'http'
 META_USE_SITES = True
+
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.setdefault('PYTHONBYTES_GMAIL_USERNAME', '')
+EMAIL_HOST_PASSWORD = os.environ.setdefault('PYTHONBYTES_GMAIL_PASSWORD', '')
+EMAIL_USE_TLS = True
+
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "MAILGUN_API_KEY": os.environ.setdefault('MAILGUN_API_KEY', ''),
+    "MAILGUN_SENDER_DOMAIN": os.environ.setdefault('MAILGUN_SENDER_DOMAIN', 'thepythonbytes.xofytech.com'),
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = "Hanz <hanz@thepythonbytes.xofytech.com>"  # if you don't already have this in settings
+SERVER_EMAIL = "SERVER@thepythonbytes.xofytech.com"  # ditto (default from-email for Django errors)
