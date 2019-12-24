@@ -1,24 +1,52 @@
-{% load cms_tags sekizai_tags static meta page_meta_tags %}
+{% load cms_tags sekizai_tags static meta page_meta_tags google_analytics_js %}
 {% page_meta request.current_page as page_meta %}
 
 <html>
     <head {% meta_namespaces %}>
         <title>{% page_attribute "page_title" %}</title>
-        {% include "meta/meta.html" %}
         {% include 'djangocms_page_meta/meta.html' with meta=page_meta %}
-        <link href="{% static 'vendors/googlefonts/icon.css' %}" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald&display=swap" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="{% static 'vendors/materialize/css/materialize--project.min.css' %}"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        {% if debug %}
+            <link href="{% static 'vendors/googlefonts/icon.css' %}" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald&display=swap" rel="stylesheet">
+            <link type="text/css" rel="stylesheet" href="{% static 'vendors/materialize/css/materialize--project.min.css' %}"  media="screen,projection"/>
+            <link href="{% static 'vendors/animate.css' %}" rel="stylesheet">
+        {% else %}
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald&display=swap" rel="stylesheet">
+            <link type="text/css" rel="stylesheet" href="{% static 'vendors/materialize/css/materialize--project.min.css' %}"  media="screen,projection"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        {% endif %}
+
+
         {% render_block "css" %}
         {% render_block "highlightcss" %}
+        {% if debug %}
+            <link href="{% static 'css/project.css' %}" rel="stylesheet">
+        {% else %}
+            <link href="{% static 'css/project.min.css' %}" rel="stylesheet">
+        {% endif %}
+        {% google_analytics_js %}
     </head>
     <body>
         {% cms_toolbar %}
-        {% block content %}{% endblock content %}
+        <main>
+            {% block content %}{% endblock content %}
+        </main>
 
-        <script type="text/javascript" src="{% static 'vendors/materialize/js/materialize.min.js' %}"></script>
-        <script src="{% static 'js/base.js' %}"></script>
+        <footer class="page-footer">
+            {% static_placeholder 'footer' %}
+        </footer>
+
+        {% if debug %}
+            <script type="text/javascript" src="{% static 'vendors/materialize/js/materialize.min.js' %}"></script>
+            <script src="{% static 'js/base.js' %}"></script>
+        {% else %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            <script src="{% static 'js/base.min.js' %}"></script>
+        {% endif %}
+        {% block endbodyjs %}{% endblock endbodyjs %}
         {% render_block "js" %}
         {% render_block "highlightjs" %}
     </body>

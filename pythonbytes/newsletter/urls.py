@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .views import (
-    NewsletterDetailView, NewsletterSendRedirectView, NewsletterListView)
+    NewsletterDetailView, NewsletterSendRedirectView, NewsletterListView,
+    SubscriberCreateView)
 
 
 app_name = 'newsletter'
@@ -14,5 +15,7 @@ urlpatterns = [
         '<str:pk>/',
         NewsletterDetailView.as_view(),
         name='detail'),
-    path('', NewsletterListView.as_view(), name='list')
+    path('', NewsletterListView.as_view(), name='list'),
+
+    path('subscribers/new/', SubscriberCreateView.as_view(), name='subscribe')
 ]

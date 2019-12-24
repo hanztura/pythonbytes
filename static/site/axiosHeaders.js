@@ -1,0 +1,1 @@
+axios.defaults.headers.post['X-CSRFToken'] = document.getElementById('id--csrftoken').value;

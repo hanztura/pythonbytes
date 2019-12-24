@@ -3,7 +3,6 @@
 
 {% block content %}
   {% include "_snippets/navbar.html" %}
-  <input type="hidden" id="id--csrftoken" value="{{csrf_token}}">
   <div class="container" style="margin-top: 10px !important">
     {% placeholder "content" %}  
   </div>
@@ -15,16 +14,12 @@
   {% if debug %}
     <script src='{% static "vendors/axios.min.js" %}'></script>
     <script src='{% static "vendors/vue.js" %}'></script>
-    <script src='{% static "vendors/vuelidate/vuelidate.min.js" %}'></script>
-    <script src='{% static "vendors/vuelidate/validators.min.js" %}'></script>
     <script src="{% static "vendors/vue-recaptcha.js" %}"></script>
 
     <script src='{% static "site/axiosHeaders.js" %}'></script>
   {% else %}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
-    <script src='{% static "vendors/vuelidate/vuelidate.min.js" %}'></script>
-    <script src='{% static "vendors/vuelidate/validators.min.js" %}'></script>
     <script src="{% static "vendors/vue-recaptcha.min.js" %}"></script>
 
     <script src='{% static "site/axiosHeaders.min.js" %}'></script>

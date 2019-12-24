@@ -1,0 +1,43 @@
+{% load static sekizai_tags %}
+
+<div class="row">
+  <form class="col s12 grey lighten-3" action="{% url 'newsletter:subscribe' %}" ref="formSubscribe" method="POST" id="form--simple_subscriber_plugin"  @submit.prevent="submitForm($event)">
+    <h4 class="center-align">Free Email Updates</h4>
+    <p class="center-align">Get notified on our new free tutorials and articles.</p>
+
+    <transition
+      name="custom-classes-transition"
+      mode="out-in"
+      leave-active-class="animated fadeOutUp"
+      enter-active-class="animated fadeInDown">
+      <div class="row" v-if="!sent" key="form">
+        <div class="input-field col s12">
+          <input id="email_address" v-model.lazy="$v.emailAddress.$model" type="email" name='email_address' class="validate white" required placeholder="enter your email address">
+        </div>
+        <div class="input-field col s12" v-show="$v.emailAddress.$dirty">
+          <vue-recaptcha
+            ref="recaptcha"
+            sitekey='{{recaptcha_site_key}}'
+            @verify="onCaptchaVerified"
+            @expired="onCaptchaExpired"></vue-recaptcha>
+          <div class="blue-text"><small>Help us prevent spam bots. Please confirm that you're a human.</small></div>
+        </div>
+        <div class="input-field col s12">
+          <input class="btn" style="width:100%" type="submit" value="Subscribe">
+          <p class="center-align"><small><i class="tiny material-icons green-text">lock</i>This information will only be used to send updates on our free tutorials and articles. Unsubscribe anytime.</small></p>
+        </div>
+      </div>
+
+      <div class="row" v-else key="thank-you">
+        <div class="col s12">
+          <p class="center-align"><i class="material-icons green-text">check</i>Thank you for subscribing!</p>
+        </div>
+      </div>
+      </transition>
+  </form>
+</div>
+
+
+{% addtoblock 'js' %}
+  <script src="{% static 'site/customCMSPlugins/simpleSubscriberPlugin.js' %}"></script>
+{% endaddtoblock %}

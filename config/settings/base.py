@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django_extensions',
 
     'anymail',
+    'captcha',
+    'analytical',
 
     'cms',
     'menus',
@@ -151,7 +153,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'system.User'
-
+ADMINS = (('Hanz', 'hctura.official@gmail.com'), )
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -171,6 +173,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
 
 SITE_ID = 1
 
@@ -231,3 +237,10 @@ ANYMAIL = {
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
 DEFAULT_FROM_EMAIL = "Hanz <hanz@thepythonbytes.xofytech.com>"  # if you don't already have this in settings
 SERVER_EMAIL = "SERVER@thepythonbytes.xofytech.com"  # ditto (default from-email for Django errors)
+
+RECAPTCHA_DOMAIN = 'www.recaptcha.net'
+
+INTERNAL_IPS = ('localhost', '127.0.0.1')
+
+ANALYTICAL_AUTO_IDENTIFY = False
+GOOGLE_ANALYTICS_JS_PROPERTY_ID = 'UA-154969060-1'

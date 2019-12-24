@@ -3,16 +3,26 @@
 
 {% block content %}
   {% include "_snippets/navbar.html" %}
-  <div class="container">
+  <div class="container" style="margin-top: 10px !important">
     {% placeholder "content" %}  
   </div>
 
   {% addtoblock "highlightcss" %}
-    <link rel="stylesheet" href="{% static "vendors/highlightjs/styles/atom-one-light.css" %}">
+    {% if debug %}
+      <link rel="stylesheet" href="{% static "vendors/highlightjs/styles/atom-one-light.css" %}">
+    {% else %}
+      <link rel="stylesheet"
+      href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/atom-one-light.min.css">
+    {% endif %}
   {% endaddtoblock %}
 
   {% addtoblock "highlightjs" %}
-    <script src="{% static "vendors/highlightjs/highlight.pack.js" %}"></script>
+    {% if debug %}
+      <script src="{% static "vendors/highlightjs/highlight.pack.js" %}"></script>
+    {% else %}
+      <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
+    {% endif %}
+
     <script>hljs.initHighlightingOnLoad();</script>
   {% endaddtoblock %}
 {% endblock content %}

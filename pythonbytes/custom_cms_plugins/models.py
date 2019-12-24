@@ -39,3 +39,9 @@ class CardPlugin(CMSPlugin):
 
     def __str__(self):
         return self.title
+
+
+class SimpleSubscribePlugin(CMSPlugin):
+    submit_url_name = models.CharField(max_length=100)
+    has_name = models.BooleanField(default=False, blank=True)
+    is_recaptcha_enabled = models.BooleanField(default=True)

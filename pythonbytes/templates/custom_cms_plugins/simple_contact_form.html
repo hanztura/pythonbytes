@@ -1,0 +1,50 @@
+{% load static sekizai_tags %}
+
+<div class="row">
+  <form class="col s12" action="{% url 'system:contact' %}" ref="formContact" method="POST" id="form--simple-contact-form"  @submit.prevent="submitForm($event)">
+    {% csrf_token %}
+    <transition
+      name="custom-classes-transition"
+      mode="out-in"
+      leave-active-class="animated fadeOutUp"
+      enter-active-class="animated fadeInDown">
+      <div v-if="!sent" class="row" key="form">
+        <div class="input-field col s12">
+          <input placeholder="Your name" id="name" name="name" ref="name" type="text" required class="validate">
+          <label for="name">Name</label>
+        </div>
+        <div class="input-field col s12">
+          <input placeholder="john@email.com" id="{{ form.email_address.id_for_label }}" ref="emailAddress" name="email_address" type="email" required class="validate">
+          <label for="{{ form.email_address.id_for_label }}">Email Address</label>
+        </div>
+        <div class="input-field col s12">
+          <textarea id="{{ form.message.id_for_label }}" name="message" ref="message" required class="materialize-textarea validate" placeholder="Your message"></textarea>
+          <label for="{{ form.message.id_for_label }}">Message</label>
+        </div>
+        <div class="input-field col s12">
+          <vue-recaptcha
+            ref="recaptcha"
+            sitekey='{{recaptcha_site_key}}'
+            @verify="onCaptchaVerified"
+            @expired="onCaptchaExpired"></vue-recaptcha>
+          <div class="blue-text"><small>Help us prevent spam bots. Please confirm that you're a human.</small></div>
+        </div>
+        <div class="input col s12">
+          <input class="btn light-blue" :disabled="disableSubmit"  style="width:100%" type="submit" value="SEND">
+        </div>
+      </div>
+
+      <div class="row" v-else key="thankYou">
+        <div class="col s12">
+          <p class="center-align"><i class="material-icons green-text">check</i></p>
+          <h6 class="center-align">Thank you for contacting us!</h6>
+        </div>
+      </div>
+      </transition>
+  </form>
+</div>
+
+
+{% addtoblock 'js' %}
+  <script src='{% static "site/customCMSPlugins/contactForm.js" %}'></script>
+{% endaddtoblock %}

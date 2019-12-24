@@ -1,9 +1,14 @@
+import json
+
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
+from django.views.generic.base import View
 from django.views.generic.list import ListView
 
+from .forms import SubscriberModelForm
 from .models import Newsletter, Subscriber
 from .utils import send_newsletter
 
@@ -39,3 +44,22 @@ class NewsletterSendRedirectView(RedirectView):
             messages.warning(request, msg)
 
         return super().post(request, *args, **kwargs)
+
+
+class SubscriberCreateView(View):
+    http_method_names = ('post',)
+
+    def post(self, request, *args, **kwargs):
+        form = SubscriberModelForm(json.loads(request.body.decode('utf-8')))
+        data = {
+            'data': '',
+            'ok': False,
+            'errors': {},
+        }
+        if form.is_valid():
+            form.save()
+            data['ok'] = True
+        else:
+            data['errors'] = form.errors
+
+        return JsonResponse(data)
