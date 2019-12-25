@@ -1,14 +1,15 @@
 import json
 
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.utils.timezone import now
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.base import View
 from django.views.generic.list import ListView
 
-from .forms import SubscriberModelForm
+from .forms import SubscriberModelForm, ActivatorModel
 from .models import Newsletter, Subscriber
 from .utils import send_newsletter
 
@@ -63,3 +64,28 @@ class SubscriberCreateView(View):
             data['errors'] = form.errors
 
         return JsonResponse(data)
+
+
+class UnsubscribeView(View):
+    http_method_names = ('get',)
+
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', '')
+        unsubscribe_key = kwargs.get('token', '')
+        subscriber = get_object_or_404(
+            Subscriber,
+            pk=pk,
+            unsubscribe_key=unsubscribe_key)
+
+        INACTIVE_STATUS = ActivatorModel.INACTIVE_STATUS
+        if subscriber.status != INACTIVE_STATUS:
+            subscriber.status = INACTIVE_STATUS
+            subscriber.deactivate_date = now()
+            subscriber.save()
+
+        msg = 'Hi {}! This is to confirm you\'re unsubsription \
+            to our newsletter. Thank you!'
+        msg = msg.format(subscriber.possible_name.upper())
+        messages.success(request, msg)
+
+        return HttpResponseRedirect('/')
