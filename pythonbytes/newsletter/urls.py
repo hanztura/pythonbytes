@@ -2,11 +2,17 @@ from django.urls import path
 
 from .views import (
     NewsletterDetailView, NewsletterSendRedirectView, NewsletterListView,
-    SubscriberCreateView)
+    SubscriberCreateView, UnsubscribeView)
 
 
 app_name = 'newsletter'
 urlpatterns = [
+    path(
+        'unsubscribe/<str:pk>/<str:token>/',
+        UnsubscribeView.as_view(),
+        name='unsubscribe'),
+    path('subscribers/new/', SubscriberCreateView.as_view(), name='subscribe'),
+
     path(
         '<str:pk>/send-now/',
         NewsletterSendRedirectView.as_view(),
@@ -17,5 +23,4 @@ urlpatterns = [
         name='detail'),
     path('', NewsletterListView.as_view(), name='list'),
 
-    path('subscribers/new/', SubscriberCreateView.as_view(), name='subscribe')
 ]
