@@ -4,10 +4,11 @@
 __pycache__/
 db.sqlite3
 test.sqlite3
-test.py
 media/
 collectstatic/
 *.sass-cache/
 
 docs/_build/
 config/settings/local.py
+
+ansible/
