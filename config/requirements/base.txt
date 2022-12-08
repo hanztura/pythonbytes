@@ -2,7 +2,7 @@ aldryn-apphooks-config==0.5.3
 arrow==0.15.4
 asgiref==3.2.3
 binaryornot==0.4.4
-certifi==2019.11.28
+certifi==2022.12.7
 chardet==3.0.4
 Click==7.0
 Django==2.2.8
